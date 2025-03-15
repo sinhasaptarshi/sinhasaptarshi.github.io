@@ -25,6 +25,54 @@
 <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">
 <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
+<style>
+    /* Scrollable container */
+    .activities-container {
+    max-height: 200px; /* Limit height */
+    overflow-y: scroll; /* Always show scrollbar */
+    padding: 10px;
+    width: 100%;
+    margin: auto;
+
+    /* Force scrollbar visibility */
+    scrollbar-width: thin;  /* For Firefox */
+    scrollbar-color: #888 #f1f1f1;
+}
+
+/* For WebKit Browsers (Chrome, Edge, Safari) */
+.activities-container::-webkit-scrollbar {
+    width: 8px; /* Always visible scrollbar */
+}
+
+.activities-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar thumb color */
+    border-radius: 4px;
+}
+
+.activities-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track color */
+}
+.custom-list {
+    text-align: left;
+    list-style: none;
+    padding-left: 0;
+}
+
+.custom-list li {
+    display: flex;
+    align-items: center;
+}
+
+.bullet {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-right: 5px;
+}
+.sub-list {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+</style>
 
 <title>Saptarshi Sinha</title>
 </head>
@@ -40,8 +88,8 @@
         </header>
         <p class="text-justify" style="text-align:justify">I am currently a Ph.D. student working with Prof. <a href="https://dimadamen.github.io/"> Dima Damen </a> at the School of Computer Science, University of Bristol. I am part of <a href="https://uob-mavi.github.io/">MaVi</a> and
             <a href="https://vilab.blogs.bristol.ac.uk/">ViLab</a>. 
-            I was previously a computer vision researcher at <a href="https://www.hitachi.com/rd/">Hitachi Research and Development</a>, Japan.
-            My research interest lies in computer vision, focusing primarily on long-term video understanding. I completed my Masters from <a href="https://www.iitb.ac.in/">IIT Bombay</a> under the supervision of Prof. <a href="https://www.ee.iitb.ac.in/~sc/">Subhasis Chaudhuri</a>. </p>
+            I was previously a computer vision researcher at <a href="https://www.hitachi.com/rd/">Hitachi Research and Development</a>, Japan from October 2018 to August 2022.
+            My research interest lies in computer vision, focusing primarily on long-term video understanding. I completed my Masters in 2018 from <a href="https://www.iitb.ac.in/">IIT Bombay</a> under the supervision of Prof. <a href="https://www.ee.iitb.ac.in/~sc/">Subhasis Chaudhuri</a>. </p>
         <ul class="list-inline list-social-icons mb-0">
             <!-- <li class="list-inline-item">You can find me here <span style='font-size:30px;'>&#128073;</span></li> -->
             
@@ -109,8 +157,13 @@
     <hr>
     <h3>Activities</h3>
 
+    <div class="activities-container">
+
             <!--activities_section-->
             <ul class="text-justify" class="no-bullets" style="text-align:justify">
+                <li><span class="text-justify" class="prim-colour">Febraury 2025</span> - <b>HD-Epic out on ArXiv &#x1F389;.</b> More details <a href="https://hd-epic.github.io">here</a>. </li>
+                <li><span class="text-justify" class="prim-colour">December 2024</span> - <b>Attended and presented at ACCV, Vietnam.</b> </li>
+                <li><span class="text-justify" class="prim-colour">September 2024</span> - <b>ESCounts accepted at ACCV.</b> Our paper "Every Shot Counts: Using Exemplars for Repetition Counting in Videos" got accepted in ACCV. More information <a href="https://sinhasaptarshi.github.io/escounts/">here</a>. </li>
                 <li><span class="text-justify" class="prim-colour">April 2024</span> - <b>New paper out on arXiv.</b> Our paper "Every Shot Counts: Using Exemplars for Repetition Counting in Videos" is up on arXiv. More information <a href="https://sinhasaptarshi.github.io/escounts/">here</a>. </li>
                 <li> <span class="text-justify" class="prim-colour">August 2023</span> - <b>Paper accepted at BMVC 2023.</b> Our paper "MILA: Memory-Based Instance-Level Adaptation for Cross-Domain Object Detection" got accepted in BMVC. More information <a href="https://arxiv.org/abs/2309.01086">here</a>. </li>
                 <li> <span class="text-justify" class="prim-colour">June 2023</span> - <b>Attended and presented at CVPR, Vancouver.</b> It was an honour presenting at CVPR and meeting new people. More information and photos <a href="https://twitter.com/dimadamen/status/1671342240604762112">here</a>. </li>
@@ -127,6 +180,7 @@
                 <!-- <li> <span class="prim-colour">August 2018</span> - <b>Graduated from IIT Mumbai</b> </li> -->
                 
                 </ul>
+        </div>
 
     <!-- <table>
         <tr> -->
@@ -138,6 +192,23 @@
     <table class="researchtable" style="text-align:justify">
         <tbody>
         </tr>
+        <td class=img>
+            <img src="images/hd-epic.png" style="width:300px; height:150px">
+        </td>
+        <td valign="top">
+            <span class="text-justify" class="prim-colour">HD-EPIC: A Highly-Detailed Egocentric Video Dataset</span>
+            <br>
+            Toby Perrett<sup>*</sup>, Ahmad Darkhalil<sup>*</sup>, <span>Saptarshi Sinha</span><sup>*</sup>, Omar Emara<sup>*</sup>, Sam Pollard<sup>*</sup>, Kranti Parida<sup>*</sup>, Kaiting Liu<sup>*</sup>, Prajwal Gatti<sup>*</sup>, Siddhant Bansal<sup>*</sup>, Kevin Flanagan<sup>*</sup>, Jacob Chalk<sup>*</sup>, Zhifan Zhu<sup>*</sup>, Rhodri Guerrier<sup>*</sup>, Fahd Abdelazim<sup>*</sup>, Bin Zhu, Davide Moltisanti, Michael Wray, Hazel Doughty, Dima Damen
+            <br>
+            <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2025</em>
+            <br>
+            <strong>
+                <a href="https://hd-epic.github.io">[Webpage]</a>
+                <a href="https://arxiv.org/abs/2502.04144">[arXiv]</a>
+                <a href="https://github.com/hd-epic/hd-epic-annotations">[github]</a>
+            </strong>
+        </td>
+    </tr>
         <!-- <td class=img>
             <img src="images/everyshotcounts.png" style="width:300px; height:140px">
         </td> -->
@@ -152,7 +223,7 @@
             <br>
             <span>Saptarshi Sinha</span>, Alexandros Stergiou, Dima Damen
             <br>
-            <em>arXiv, 2024</em>
+            <em>Asian Conference of Computer Vision (ACCV), 2024</em>
             <br>
             <strong>
                 <a href="https://sinhasaptarshi.github.io/escounts/">[Webpage]</a>
@@ -289,6 +360,22 @@
     </tbody>
     </table>
     <!--end_research-->
+
+    <hr>
+    <h3>Miscellaneous</h3>
+    <ul class="custom-list">
+        <li><span class="bullet">*</span> Reviewer: CVPR 2025, ICCV 2023, ICCV 2025, ECCV 2024, ACCV 2024, IJCV 2024, TIP 2024, NeuroComputing 2024, PRLetters 2023</li>
+        <li><span class="bullet">*</span> Teaching Assistant: Applied Deep Learning, Machine Learning, Applied Data Science</li>
+        <li><span class="bullet">*</span> Appointed representative of approximately 300 post-graduate research students funded by EPSRC </li>
+        <!-- <li><span class="bullet">*</span> Enhanced model performance through fine-tuning</li>
+        <li><span class="bullet">*</span> Conducted extensive debugging and error analysis</li>
+        <li><span class="bullet">*</span> Improved computational efficiency in large-scale simulations</li> -->
+    </ul>
+
+    <!-- <table>
+        <tr> -->
+            <!-- <td><span style='font-size:80px;'>&#9997;</span></td> -->
+        <hr>
         </tbody>
     </table>
     </div>
