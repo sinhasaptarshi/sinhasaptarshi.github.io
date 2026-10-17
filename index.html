@@ -477,5 +477,16 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
   sync();
 })();
 </script>
+<script>
+  // GoatCounter: count each tab (About, Research, News, CV) as its own page.
+  window.goatcounter = { no_onload: true };
+  function gcTrack() {
+    if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+      window.goatcounter.count({ path: location.pathname + (location.hash || '#about') });
+    }
+  }
+  window.addEventListener('hashchange', gcTrack);
+</script>
+<script data-goatcounter="https://sinhasaptarshi.goatcounter.com/count" async src="https://gc.zgo.at/count.js" onload="gcTrack()"></script>
 </body>
 </html>
