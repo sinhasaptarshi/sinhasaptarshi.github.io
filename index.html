@@ -13,7 +13,7 @@
 :root {
   --bg: #F4F6FB; --surface: #FFFFFF; --border: #D9DEEA;
   --text: #1A2233; --muted: #5B6480; --hi: #0B1220;
-  --accent: #1F6FB2; --accent2: #6B46C1;
+  --accent: #1F6FB2; --accent2: #6B46C1; --tl-patent: #1E8A62; --tl-award: #B7791F;
   --nav-bg: rgba(244, 246, 251, 0.82);
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -27,7 +27,7 @@
   :root:not([data-theme="light"]) {
     --bg: #080D1A; --surface: #0F1628; --border: #1E2844;
     --text: #D8DDEA; --muted: #8C95B0; --hi: #F0F2FA;
-    --accent: #5BBFFF; --accent2: #A78BFA;
+    --accent: #5BBFFF; --accent2: #A78BFA; --tl-patent: #4CC49A; --tl-award: #E8B54A;
     --nav-bg: rgba(8, 13, 26, 0.8);
     color-scheme: dark;
   }
@@ -35,7 +35,7 @@
 :root[data-theme="dark"] {
   --bg: #080D1A; --surface: #0F1628; --border: #1E2844;
   --text: #D8DDEA; --muted: #8C95B0; --hi: #F0F2FA;
-  --accent: #5BBFFF; --accent2: #A78BFA;
+  --accent: #5BBFFF; --accent2: #A78BFA; --tl-patent: #4CC49A; --tl-award: #E8B54A;
   --nav-bg: rgba(8, 13, 26, 0.8);
   color-scheme: dark;
 }
@@ -178,10 +178,10 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
 
 @media (max-width: 760px) {
   html { font-size: 17px; }
-  .nav-inner { padding: 0 16px; gap: 8px; }
+  .nav-inner { padding: 0 10px; gap: 4px; }
   .logo { display: none; }
   .nav-links { margin: 0 auto; }
-  .nav-links a { padding: 16px 7px 14px; font-size: 0.88rem; }
+  .nav-links a { padding: 16px 4px 14px; font-size: 0.8rem; }
   .nav-links { gap: 0; }
   main { padding: 40px 20px 72px; }
   footer { padding: 24px 20px 32px; }
@@ -236,6 +236,78 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
   .lb-prev { left: calc(50% - 58px); } .lb-next { right: calc(50% - 58px); }
 }
 @media (prefers-reduced-motion: reduce) { .ph img { transition: none; } }
+
+/* Timeline */
+.tl-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: -14px 0 30px; font-size: 0.85rem; color: var(--muted); }
+.tl-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.tl-key { width: 14px; height: 10px; border-radius: 3px; display: inline-block; }
+.tl-key.dot { width: 11px; height: 11px; border-radius: 50%; }
+.k-edu { background: color-mix(in srgb, var(--accent) 35%, var(--surface)); border: 1px solid var(--accent); }
+.k-work { background: color-mix(in srgb, var(--accent2) 35%, var(--surface)); border: 1px solid var(--accent2); }
+.k-paper { background: var(--accent); } .k-patent { background: var(--tl-patent); } .k-award { background: var(--tl-award); }
+
+.tl-chart { position: relative; }
+.tl-row { display: grid; grid-template-columns: 128px 1fr; border-top: 1px solid var(--border); }
+.tl-row:last-child { border-bottom: 1px solid var(--border); }
+.tl-lane { font-size: 0.8rem; font-weight: 500; color: var(--muted); padding: 0 12px 0 0; display: flex; align-items: center; }
+.tl-track { position: relative; }
+.tl-gridlines, .tl-nowline { position: absolute; top: 0; bottom: 0; left: 128px; right: 0; pointer-events: none; }
+.tl-gridlines i { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); opacity: .55; }
+.tl-nowline b { position: absolute; top: -6px; bottom: 0; width: 2px; margin-left: -1px; background: var(--accent); border-radius: 2px; }
+.tl-nowline span { position: absolute; top: -26px; transform: translateX(-50%); font-family: var(--mono); font-size: 0.72rem; color: var(--accent); white-space: nowrap; }
+.tl-axis { position: relative; height: 28px; margin-left: 128px; }
+.tl-axis span { position: absolute; top: 8px; transform: translateX(-50%); font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+
+.tl-bar {
+  position: absolute; top: 50%; height: 32px; margin-top: -16px; border-radius: 8px; padding: 0 10px;
+  display: flex; align-items: center; font: inherit; font-size: 0.8rem; font-weight: 500; color: var(--hi);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; cursor: pointer; border: 1px solid;
+  animation: tl-grow .9s cubic-bezier(.2, .7, .2, 1) backwards; animation-delay: var(--d, 0s);
+}
+.tl-bar.edu { background: color-mix(in srgb, var(--accent) 16%, var(--surface)); border-color: color-mix(in srgb, var(--accent) 60%, transparent); }
+.tl-bar.work { background: color-mix(in srgb, var(--accent2) 16%, var(--surface)); border-color: color-mix(in srgb, var(--accent2) 60%, transparent); }
+.tl-bar.open { border-right-style: dashed; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.tl-bar.tiny { padding: 0; }
+.tl-bar:hover, .tl-bar.on { box-shadow: 0 0 0 2px var(--accent); }
+.tl-bar.work:hover, .tl-bar.work.on { box-shadow: 0 0 0 2px var(--accent2); }
+.tl-out { position: absolute; top: 50%; transform: translateY(-50%); font-size: 0.78rem; color: var(--muted); white-space: nowrap; pointer-events: none; }
+
+.tl-dot {
+  position: absolute; width: 14px; height: 14px; margin: -7px 0 0 -7px; padding: 0; border-radius: 50%;
+  border: 2px solid var(--bg); cursor: pointer; transition: scale .15s ease;
+  animation: tl-pop .4s ease-out backwards; animation-delay: var(--d, 0s);
+}
+.tl-dot.paper { background: var(--accent); } .tl-dot.patent { background: var(--tl-patent); } .tl-dot.award { background: var(--tl-award); }
+.tl-dot:hover, .tl-dot.on { scale: 1.45; }
+.tl-dot.on { box-shadow: 0 0 0 3px color-mix(in srgb, var(--hi) 25%, transparent); }
+
+.tl-detail { margin-top: 26px; min-height: 112px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; }
+.tl-detail .when { font-family: var(--mono); font-size: 0.78rem; color: var(--accent2); margin-bottom: 4px; }
+.tl-detail .what { font-weight: 500; color: var(--hi); font-size: 1.02rem; }
+.tl-detail .where { color: var(--muted); font-size: 0.92rem; }
+.tl-detail .desc { margin-top: 6px; font-size: 0.95rem; max-width: 46em; }
+.tl-detail .hint { color: var(--muted); font-size: 0.9rem; }
+
+.tl-list { display: none; }
+.tl-year { margin-top: 22px; }
+.tl-year h3 { font-family: var(--serif); font-weight: 300; font-size: 1.5rem; color: var(--muted); margin-bottom: 6px; }
+.tl-year ul { list-style: none; border-left: 2px solid var(--border); margin-left: 6px; padding-left: 20px; }
+.tl-year li { position: relative; padding: 8px 0 12px; }
+.tl-year li::before { content: ""; position: absolute; left: -27px; top: 14px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--bg); background: var(--muted); }
+.tl-year li.edu::before { background: var(--accent); border-radius: 3px; } .tl-year li.work::before { background: var(--accent2); border-radius: 3px; }
+.tl-year li.paper::before { background: var(--accent); } .tl-year li.patent::before { background: var(--tl-patent); } .tl-year li.award::before { background: var(--tl-award); }
+.tl-year .when { font-family: var(--mono); font-size: 0.75rem; color: var(--accent2); }
+.tl-year .what { font-weight: 500; color: var(--hi); }
+.tl-year .desc { font-size: 0.9rem; color: var(--muted); }
+
+@keyframes tl-grow { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes tl-pop { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .tl-bar, .tl-dot { animation: none; } .tl-dot { transition: none; } }
+@media (max-width: 760px) {
+  .tl-chart-wrap { display: none; }
+  .tl-list { display: block; }
+  .tl-legend { margin-bottom: 8px; }
+}
 </style>
 </head>
 <body>
@@ -248,6 +320,7 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
       <li><a href="#about">About</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#news">News</a></li>
+      <li><a href="#timeline">Timeline</a></li>
       <li><a href="#cv">CV</a></li>
       <li><a href="#travel">Travel</a></li>
     </ul>
@@ -374,6 +447,25 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
       <li><span class="when">Collaborations</span><p>Naver Labs Europe, Keio University, and the Universities of Twente, Leiden and Bath</p></li>
     </ul>
   </div>
+</section>
+<section class="page" id="page-timeline" hidden>
+  <header class="page-head">
+    <h1>Timeline</h1>
+    <p>From Kolkata to Mumbai, Tokyo, Bristol and Grenoble: degrees, research positions, papers, patents and awards since 2012.</p>
+  </header>
+  <div class="tl-legend" aria-hidden="true">
+    <span><i class="tl-key k-edu"></i>Education</span>
+    <span><i class="tl-key k-work"></i>Research &amp; industry</span>
+    <span><i class="tl-key dot k-paper"></i>Paper</span>
+    <span><i class="tl-key dot k-patent"></i>Patent</span>
+    <span><i class="tl-key dot k-award"></i>Award</span>
+  </div>
+  <div class="tl-chart-wrap">
+    <div class="tl-chart" id="tlChart"></div>
+    <div class="tl-axis" id="tlAxis"></div>
+    <div class="tl-detail" id="tlDetail" aria-live="polite"></div>
+  </div>
+  <div class="tl-list" id="tlList"></div>
 </section>
 <section class="page" id="page-travel" hidden>
   <header class="page-head">
@@ -557,7 +649,7 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
 
 <script>
 (function () {
-  var pages = ['about', 'research', 'news', 'cv', 'travel'];
+  var pages = ['about', 'research', 'news', 'timeline', 'cv', 'travel'];
   function route() {
     var id = (location.hash || '#about').slice(1);
     if (pages.indexOf(id) === -1) id = 'about';
@@ -751,5 +843,125 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
   window.addEventListener('hashchange', gcTrack);
 </script>
 <script data-goatcounter="https://sinhasaptarshi.goatcounter.com/count" async src="https://gc.zgo.at/count.js" onload="gcTrack()"></script>
+<script>
+(function () {
+  var NOW = (function () { var d = new Date(); return d.getFullYear() + d.getMonth() / 12 + d.getDate() / 365; })();
+  var START = 2012.3, END = NOW + 0.3;
+  var periods = [
+    { lane: 'edu', from: 2012.5, to: 2016.5, label: 'BTech, IEM Kolkata', when: '2012 – 2016', what: 'BTech, Electronics and Telecommunication', where: 'Institute of Engineering & Management, Kolkata', desc: 'CPI 8.68/10.' },
+    { lane: 'edu', from: 2016.5, to: 2018.5, label: 'MTech, IITB', when: '2016 – 2018', what: 'MTech, Electrical Engineering', where: 'IIT Bombay, Mumbai', desc: 'Advisor: Prof. Subhasis Chaudhuri. CPI 9.13/10.' },
+    { lane: 'work', from: 2018.75, to: 2022.67, label: 'AI researcher, Hitachi', when: 'Oct 2018 – Sep 2022', what: 'AI researcher', where: 'Hitachi Central Research Laboratory, Tokyo', desc: 'Difficulty-based methods for long-tailed recognition, and activity recognition from egocentric and wide-angle video. The work led to three granted Japan patents.' },
+    { lane: 'edu', from: 2022.67, to: NOW, open: true, label: 'Ph.D., University of Bristol', when: 'Sep 2022 – now', what: 'Ph.D., Computer Science', where: 'University of Bristol, with Prof. Dima Damen', desc: 'Long-term, multi-modal video understanding, in MaVi and the Visual Information Lab. Funded by an EPSRC Doctoral Training Studentship.' },
+    { lane: 'work', from: 2026.17, to: 2026.42, label: 'Naver Labs Europe', when: 'Mar – May 2026', what: 'Visiting researcher', where: 'Naver Labs Europe, Grenoble', desc: 'Human-motion generation and egocentric video understanding. The collaboration is ongoing.' }
+  ];
+  var marks = [
+    { type: 'award', t: 2016.15, when: '2016', what: 'GATE: All-India Rank 62', desc: 'Out of 152,318 candidates in Electronics and Communication.' },
+    { type: 'paper', t: 2019.62, when: 'Aug 2019', what: 'Activity recognition based on egocentric object detection', desc: 'IEICE FIT 2019. First paper, first author.', link: 'https://www.ieice.org/publications/search/summary.php?id=FIT0000013722&tbl=conf_fit&lang=en' },
+    { type: 'paper', t: 2019.87, when: '2019', what: 'NII Hitachi UIT at TRECVID 2019', desc: 'TRECVID 2019.', link: 'https://openreview.net/forum?id=8TKXl2RClV' },
+    { type: 'paper', t: 2020.7, when: 'Sep 2020', what: 'Class-wise difficulty-balanced loss for solving class-imbalance', desc: 'Accepted at ACCV 2020. First international paper, first author.', link: 'https://arxiv.org/abs/2010.01824' },
+    { type: 'paper', t: 2022.6, when: 'Aug 2022', what: 'Class-difficulty based methods for long-tailed visual recognition', desc: 'Published in IJCV. First author.', link: 'https://arxiv.org/abs/2207.14499' },
+    { type: 'paper', t: 2022.62, when: 'Aug 2022', what: 'Difficulty-Net: Learning to predict difficulty for long-tailed recognition', desc: 'Accepted at WACV 2023 in round 1. First author.', link: 'https://arxiv.org/abs/2209.02960' },
+    { type: 'award', t: 2022.7, when: 'Sep 2022', what: 'EPSRC Doctoral Training Studentship', desc: 'Full tuition and stipend for the Ph.D. at Bristol.' },
+    { type: 'paper', t: 2023.12, when: 'Feb 2023', what: 'Use your head: Improving long-tail video recognition', desc: 'Accepted at CVPR 2023.', link: 'https://arxiv.org/abs/2304.01143' },
+    { type: 'paper', t: 2023.62, when: 'Aug 2023', what: 'MILA: Memory-based instance-level adaptation for cross-domain object detection', desc: 'Accepted at BMVC 2023.', link: 'https://arxiv.org/abs/2309.01086' },
+    { type: 'patent', t: 2024.5, when: 'Granted 2024', what: 'Japan patent JP7422621B2', desc: 'Class-difficulty weighting for class-imbalance.', link: 'https://patents.google.com/patent/JP7422621B2/en' },
+    { type: 'paper', t: 2024.7, when: 'Sep 2024', what: 'Every Shot Counts: Using exemplars for repetition counting in videos', desc: 'Accepted at ACCV 2024. First author.', link: 'https://sinhasaptarshi.github.io/escounts/' },
+    { type: 'paper', t: 2025.12, when: 'Feb 2025', what: 'HD-EPIC: A highly-detailed egocentric video dataset', desc: 'Released on arXiv and published at CVPR 2025. Joint first author.', link: 'https://hd-epic.github.io' },
+    { type: 'award', t: 2025.45, when: '2024/25', what: 'EgoVis Distinguished Paper Award', desc: 'For HD-EPIC.' },
+    { type: 'patent', t: 2025.5, when: 'Granted 2025', what: 'Japan patent JP7636276B2', desc: 'Wide-angle activity recognition.', link: 'https://patents.google.com/patent/JP7636276B2/en' },
+    { type: 'paper', t: 2025.95, when: 'Dec 2025', what: 'Prime and Reach: Synthesising body motion for gaze-primed object reach', desc: 'Released on arXiv. Joint first author.', link: 'https://masashi-hatano.github.io/prime-and-reach/' },
+    { type: 'patent', t: 2026.5, when: 'Granted 2026', what: 'Japan patent JP7798700B2', desc: 'Worker action recognition.', link: 'https://patents.google.com/patent/JP7798700B2/en' },
+    { type: 'paper', t: 2026.54, when: 'Jul 2026', what: 'Whareformer: Learning to track what is where in long egocentric videos', desc: 'Accepted at ECCV 2026.', link: 'https://jacobchalk.github.io/Whareformer/' }
+  ];
+
+  var chart = document.getElementById('tlChart'), axis = document.getElementById('tlAxis'),
+      detail = document.getElementById('tlDetail'), list = document.getElementById('tlList');
+  if (!chart) return;
+  var pct = function (t) { return ((t - START) / (END - START)) * 100; };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var items = [];
+
+  function show(i) {
+    var it = items[i];
+    detail.innerHTML = '<p class="when">' + esc(it.when) + '</p><p class="what">' + esc(it.what) + '</p>' +
+      (it.where ? '<p class="where">' + esc(it.where) + '</p>' : '') +
+      '<p class="desc">' + esc(it.desc) + (it.link ? ' <a href="' + esc(it.link) + '" target="_blank" rel="noopener">More</a>' : '') + '</p>';
+    chart.querySelectorAll('.on').forEach(function (e) { e.classList.remove('on'); });
+    var el = chart.querySelector('[data-i="' + i + '"]'); if (el) el.classList.add('on');
+  }
+
+  function stack(ms, gapPct) {          // place close dots on separate rows so none overlap
+    var rows = [];
+    ms.slice().sort(function (a, b) { return a.t - b.t; }).forEach(function (m) {
+      var x = pct(m.t), r = 0;
+      while (rows[r] !== undefined && x - rows[r] < gapPct) r++;
+      rows[r] = x; m.row = r;
+    });
+    return Math.max(1, rows.length);
+  }
+
+  function draw() {
+    items = [];
+    var html = '', W = chart.clientWidth - 128 || 700, gap = (20 / W) * 100;
+    var lanes = [['edu', 'Education'], ['work', 'Research &amp; industry']];
+    lanes.forEach(function (ln, li) {
+      html += '<div class="tl-row" style="height:56px"><div class="tl-lane">' + ln[1] + '</div><div class="tl-track">';
+      periods.filter(function (p) { return p.lane === ln[0]; }).forEach(function (p, k) {
+        var i = items.push(p) - 1, l = pct(p.from), w = pct(p.to) - l, px = w / 100 * W;
+        var tiny = px < 60;
+        html += '<button type="button" class="tl-bar ' + p.lane + (p.open ? ' open' : '') + (tiny ? ' tiny' : '') + '" data-i="' + i + '" style="left:' + l + '%;width:' + w + '%;--d:' + (0.1 + li * 0.15 + k * 0.12) + 's" aria-label="' + esc(p.what + ', ' + p.where + ', ' + p.when) + '">' + (tiny ? '' : esc(p.label)) + '</button>';
+        if (tiny) html += '<span class="tl-out" style="right:' + (100 - l + 1) + '%">' + esc(p.label) + '</span>';
+      });
+      html += '</div></div>';
+    });
+    [['paper', 'Papers'], ['patent award', 'Patents &amp; awards']].forEach(function (ln, li) {
+      var types = ln[0].split(' '), ms = marks.filter(function (m) { return types.indexOf(m.type) >= 0; });
+      var n = stack(ms, gap), h = 26 + n * 20;
+      html += '<div class="tl-row" style="height:' + h + 'px"><div class="tl-lane">' + ln[1] + '</div><div class="tl-track">';
+      ms.forEach(function (m, k) {
+        var i = items.push(m) - 1;
+        html += '<button type="button" class="tl-dot ' + m.type + '" data-i="' + i + '" style="left:' + pct(m.t) + '%;top:' + (h / 2 + (m.row - (n - 1) / 2) * 20) + 'px;--d:' + (0.5 + li * 0.2 + k * 0.04) + 's" aria-label="' + esc(m.when + ': ' + m.what) + '"></button>';
+      });
+      html += '</div></div>';
+    });
+    var grid = '', ax = '';
+    for (var y = Math.ceil(START); y <= Math.floor(NOW); y++) {
+      grid += '<i style="left:' + pct(y) + '%"></i>';
+      ax += '<span style="left:' + pct(y) + '%">' + y + '</span>';
+    }
+    chart.innerHTML = '<div class="tl-gridlines">' + grid + '</div>' + html +
+      '<div class="tl-nowline"><b style="left:' + pct(NOW) + '%"></b><span style="left:' + pct(NOW) + '%">Now</span></div>';
+    axis.innerHTML = ax;
+    var phd = items.findIndex(function (it) { return it.open; });
+    show(phd >= 0 ? phd : 0);
+  }
+
+  function drawList() {
+    var all = periods.map(function (p) { return { t: p.from, cls: p.lane, when: p.when, what: p.what + ', ' + p.where, desc: p.desc }; })
+      .concat(marks.map(function (m) { return { t: m.t, cls: m.type, when: m.when, what: m.what, desc: m.desc, link: m.link }; }))
+      .sort(function (a, b) { return b.t - a.t; });
+    var html = '', year = null;
+    all.forEach(function (e) {
+      var y = Math.floor(e.t);
+      if (y !== year) { if (year !== null) html += '</ul></div>'; html += '<div class="tl-year"><h3>' + y + '</h3><ul>'; year = y; }
+      html += '<li class="' + e.cls + '"><p class="when">' + esc(e.when) + '</p><p class="what">' + esc(e.what) + '</p><p class="desc">' + esc(e.desc) +
+        (e.link ? ' <a href="' + esc(e.link) + '" target="_blank" rel="noopener">More</a>' : '') + '</p></li>';
+    });
+    list.innerHTML = html + '</ul></div>';
+  }
+
+  chart.addEventListener('click', function (e) { var b = e.target.closest('[data-i]'); if (b) show(+b.dataset.i); });
+  chart.addEventListener('mouseover', function (e) { var b = e.target.closest('[data-i]'); if (b) show(+b.dataset.i); });
+  chart.addEventListener('focusin', function (e) { var b = e.target.closest('[data-i]'); if (b) show(+b.dataset.i); });
+  drawList();
+  var drawn = false;
+  function maybeDraw() {
+    if (location.hash === '#timeline' && chart.offsetParent) { draw(); drawn = true; }
+  }
+  window.addEventListener('hashchange', function () { setTimeout(maybeDraw, 0); });
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (drawn && chart.offsetParent) draw(); }, 150); });
+  setTimeout(maybeDraw, 0);
+})();
+</script>
 </body>
 </html>
