@@ -178,10 +178,10 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
 
 @media (max-width: 760px) {
   html { font-size: 17px; }
-  .nav-inner { padding: 0 10px; gap: 4px; }
+  .nav-inner { padding: 0 16px; gap: 8px; }
   .logo { display: none; }
   .nav-links { margin: 0 auto; }
-  .nav-links a { padding: 16px 4px 14px; font-size: 0.8rem; }
+  .nav-links a { padding: 16px 7px 14px; font-size: 0.88rem; }
   .nav-links { gap: 0; }
   main { padding: 40px 20px 72px; }
   footer { padding: 24px 20px 32px; }
@@ -238,7 +238,7 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
 @media (prefers-reduced-motion: reduce) { .ph img { transition: none; } }
 
 /* Timeline */
-.tl-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: -14px 0 30px; font-size: 0.85rem; color: var(--muted); }
+.tl-legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0 0 34px; font-size: 0.85rem; color: var(--muted); }
 .tl-legend span { display: inline-flex; align-items: center; gap: 8px; }
 .tl-key { width: 14px; height: 10px; border-radius: 3px; display: inline-block; }
 .tl-key.dot { width: 11px; height: 11px; border-radius: 50%; }
@@ -289,16 +289,17 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
 .tl-detail .hint { color: var(--muted); font-size: 0.9rem; }
 
 .tl-list { display: none; }
-.tl-year { margin-top: 22px; }
-.tl-year h3 { font-family: var(--serif); font-weight: 300; font-size: 1.5rem; color: var(--muted); margin-bottom: 6px; }
-.tl-year ul { list-style: none; border-left: 2px solid var(--border); margin-left: 6px; padding-left: 20px; }
-.tl-year li { position: relative; padding: 8px 0 12px; }
-.tl-year li::before { content: ""; position: absolute; left: -27px; top: 14px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--bg); background: var(--muted); }
-.tl-year li.edu::before { background: var(--accent); border-radius: 3px; } .tl-year li.work::before { background: var(--accent2); border-radius: 3px; }
-.tl-year li.paper::before { background: var(--accent); } .tl-year li.patent::before { background: var(--tl-patent); } .tl-year li.award::before { background: var(--tl-award); }
-.tl-year .when { font-family: var(--mono); font-size: 0.75rem; color: var(--accent2); }
-.tl-year .what { font-weight: 500; color: var(--hi); }
-.tl-year .desc { font-size: 0.9rem; color: var(--muted); }
+.tl-list .tl-year:first-child { margin-top: 0; }
+.tl-list .tl-year { margin-top: 22px; }
+.tl-list .tl-year h3 { font-family: var(--serif); font-weight: 300; font-size: 1.5rem; color: var(--muted); margin-bottom: 6px; }
+.tl-list .tl-year ul { list-style: none; border-left: 2px solid var(--border); margin-left: 6px; padding-left: 20px; }
+.tl-list .tl-year li { position: relative; padding: 8px 0 12px; }
+.tl-list .tl-year li::before { content: ""; position: absolute; left: -27px; top: 14px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--bg); background: var(--muted); }
+.tl-list .tl-year li.edu::before { background: var(--accent); border-radius: 3px; } .tl-list .tl-year li.work::before { background: var(--accent2); border-radius: 3px; }
+.tl-list .tl-year li.paper::before { background: var(--accent); } .tl-list .tl-year li.patent::before { background: var(--tl-patent); } .tl-list .tl-year li.award::before { background: var(--tl-award); }
+.tl-list .tl-year .when { font-family: var(--mono); font-size: 0.75rem; color: var(--accent2); }
+.tl-list .tl-year .what { font-weight: 500; color: var(--hi); }
+.tl-list .tl-year .desc { font-size: 0.9rem; color: var(--muted); }
 
 @keyframes tl-grow { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes tl-pop { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: scale(1); } }
@@ -320,7 +321,6 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
       <li><a href="#about">About</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#news">News</a></li>
-      <li><a href="#timeline">Timeline</a></li>
       <li><a href="#cv">CV</a></li>
       <li><a href="#travel">Travel</a></li>
     </ul>
@@ -391,10 +391,27 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
 <section class="page" id="page-cv" hidden>
   <header class="page-head">
     <h1>CV</h1>
-    <p>Education, experience, patents and service. <a href="https://drive.google.com/file/d/1SkEjOBw97I1Kwh-9cd7WfUEEBXJItr2-/view?usp=sharing" target="_blank" rel="noopener">Download the full CV (PDF)</a>.</p>
+    <p>My career at a glance, then education, experience, patents and service in detail. <a href="https://drive.google.com/file/d/1SkEjOBw97I1Kwh-9cd7WfUEEBXJItr2-/view?usp=sharing" target="_blank" rel="noopener">Download the full CV (PDF)</a>.</p>
   </header>
 
   <div class="section" style="margin-top:0">
+    <div class="section-head"><h2 class="h">At a glance</h2></div>
+  <div class="tl-legend" aria-hidden="true">
+    <span><i class="tl-key k-edu"></i>Education</span>
+    <span><i class="tl-key k-work"></i>Research &amp; industry</span>
+    <span><i class="tl-key dot k-paper"></i>Paper</span>
+    <span><i class="tl-key dot k-patent"></i>Patent</span>
+    <span><i class="tl-key dot k-award"></i>Award</span>
+  </div>
+  <div class="tl-chart-wrap">
+    <div class="tl-chart" id="tlChart"></div>
+    <div class="tl-axis" id="tlAxis"></div>
+    <div class="tl-detail" id="tlDetail" aria-live="polite"></div>
+  </div>
+  <div class="tl-list" id="tlList"></div>
+  </div>
+
+  <div class="section">
     <div class="section-head"><h2 class="h">Experience</h2></div>
     <ul class="rows">
       <li><span class="when">Mar – May 2026</span><div><p class="what">Visiting researcher</p><p class="where">Naver Labs Europe, Grenoble, France</p><p class="detail">Research visit on human-motion generation and egocentric video understanding. The collaboration is ongoing.</p></div></li>
@@ -447,25 +464,6 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
       <li><span class="when">Collaborations</span><p>Naver Labs Europe, Keio University, and the Universities of Twente, Leiden and Bath</p></li>
     </ul>
   </div>
-</section>
-<section class="page" id="page-timeline" hidden>
-  <header class="page-head">
-    <h1>Timeline</h1>
-    <p>From Kolkata to Mumbai, Tokyo, Bristol and Grenoble: degrees, research positions, papers, patents and awards since 2012.</p>
-  </header>
-  <div class="tl-legend" aria-hidden="true">
-    <span><i class="tl-key k-edu"></i>Education</span>
-    <span><i class="tl-key k-work"></i>Research &amp; industry</span>
-    <span><i class="tl-key dot k-paper"></i>Paper</span>
-    <span><i class="tl-key dot k-patent"></i>Patent</span>
-    <span><i class="tl-key dot k-award"></i>Award</span>
-  </div>
-  <div class="tl-chart-wrap">
-    <div class="tl-chart" id="tlChart"></div>
-    <div class="tl-axis" id="tlAxis"></div>
-    <div class="tl-detail" id="tlDetail" aria-live="polite"></div>
-  </div>
-  <div class="tl-list" id="tlList"></div>
 </section>
 <section class="page" id="page-travel" hidden>
   <header class="page-head">
@@ -649,7 +647,7 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
 
 <script>
 (function () {
-  var pages = ['about', 'research', 'news', 'timeline', 'cv', 'travel'];
+  var pages = ['about', 'research', 'news', 'cv', 'travel'];
   function route() {
     var id = (location.hash || '#about').slice(1);
     if (pages.indexOf(id) === -1) id = 'about';
@@ -956,7 +954,7 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
   drawList();
   var drawn = false;
   function maybeDraw() {
-    if (location.hash === '#timeline' && chart.offsetParent) { draw(); drawn = true; }
+    if (location.hash === '#cv' && chart.offsetParent) { draw(); drawn = true; }
   }
   window.addEventListener('hashchange', function () { setTimeout(maybeDraw, 0); });
   var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (drawn && chart.offsetParent) draw(); }, 150); });
