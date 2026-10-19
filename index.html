@@ -309,6 +309,42 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
   .tl-list { display: block; }
   .tl-legend { margin-bottom: 8px; }
 }
+
+/* Travel map */
+.trip { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 84px); }
+.tmap { margin: 0 0 64px; }
+.tmap-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+.tmap-head p { color: var(--muted); font-size: 0.92rem; }
+.tmap-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; align-items: start; min-height: 120px; }
+.tmap-grid figure { margin: 0; position: relative; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg); }
+.tmap-grid figcaption { position: absolute; left: 12px; top: 10px; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+.tmap-grid svg { display: block; width: 100%; height: auto; }
+.tmap-loading { color: var(--muted); font-size: 0.9rem; padding: 40px 0; }
+.m-land { fill: var(--surface); stroke: var(--border); stroke-width: .6; }
+.m-visited { fill: color-mix(in srgb, var(--accent) 22%, var(--surface)); stroke: color-mix(in srgb, var(--accent) 45%, var(--border)); }
+.m-stop { fill: var(--accent2); opacity: .75; }
+.m-halo { fill: var(--accent2); opacity: .22; transition: opacity .15s; }
+.m-dot { fill: var(--accent2); stroke: var(--bg); stroke-width: 1.5; }
+.m-label { font-family: var(--sans); font-size: 12.5px; font-weight: 500; fill: var(--hi); paint-order: stroke; stroke: var(--bg); stroke-width: 3.5px; stroke-linejoin: round; }
+.m-home path { fill: var(--accent); stroke: var(--bg); stroke-width: 1.2; }
+.m-home-label { fill: var(--accent); }
+.m-place { cursor: pointer; outline: none; }
+.m-place:hover .m-halo, .m-place:focus-visible .m-halo, .m-place.on .m-halo { opacity: .55; }
+.m-place:focus-visible .m-dot { stroke: var(--hi); }
+.tmap-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.tmap-chips button {
+  font: inherit; font-size: 0.85rem; color: var(--text); background: var(--bg); border: 1px solid var(--border);
+  border-radius: 999px; padding: 5px 13px; cursor: pointer; transition: color .15s, border-color .15s;
+}
+.tmap-chips button:hover, .tmap-chips button.on { color: var(--accent2); border-color: var(--accent2); }
+@media (max-width: 760px) {
+  .tmap-grid { grid-template-columns: 1fr; }
+  .tmap-inset { max-width: 240px; }
+  .m-label { display: none; }
+  .m-dot { r: 7px; } .m-halo { r: 13px; } .m-stop { r: 3.5px; }
+  .m-home path { transform: scale(1.5); }
+}
+@media (prefers-reduced-motion: reduce) { .m-halo { transition: none; } }
 </style>
 </head>
 <body>
@@ -470,6 +506,11 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
     <h1>Travel</h1>
     <p>Places I’ve explored between deadlines.</p>
   </header>
+<section class="tmap" aria-labelledby="tmapHead">
+  <div class="tmap-head"><h2 class="h" id="tmapHead">Where I’ve been</h2><p>Six countries and eleven trips so far. Tap a place to jump to its photos.</p></div>
+  <div class="tmap-grid" id="tmap" data-src="images/travel-map.html"><p class="tmap-loading">Loading the map…</p></div>
+  <div class="tmap-chips"><button type="button" data-trip="Barcelona">Barcelona</button><button type="button" data-trip="Annecy">Annecy</button><button type="button" data-trip="Grenoble">Grenoble</button><button type="button" data-trip="Paris">Paris</button><button type="button" data-trip="Geneva">Geneva</button><button type="button" data-trip="Istanbul">Istanbul &amp; Troy</button><button type="button" data-trip="Antalya">Antalya &amp; Pamukkale</button><button type="button" data-trip="Göreme">Göreme</button><button type="button" data-trip="Glasgow">Scotland</button><button type="button" data-trip="Around England">England</button><button type="button" data-trip="Hanoi">Vietnam</button></div>
+</section>
   <article class="trip">
     <div class="trip-head">
       <h2 class="trip-place">Barcelona<span>, Spain</span></h2>
@@ -959,6 +1000,41 @@ footer { max-width: 920px; margin: 0 auto; padding: 28px 32px 40px; border-top: 
   window.addEventListener('hashchange', function () { setTimeout(maybeDraw, 0); });
   var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (drawn && chart.offsetParent) draw(); }, 150); });
   setTimeout(maybeDraw, 0);
+})();
+</script>
+<script>
+(function () {
+  var box = document.getElementById('tmap'); if (!box) return;
+  var wrap = box.closest('.tmap');
+  function findTrip(key) {
+    var hs = document.querySelectorAll('.trip-place');
+    for (var i = 0; i < hs.length; i++) if (hs[i].textContent.indexOf(key) === 0) return hs[i].closest('.trip');
+  }
+  function go(key) {
+    var a = findTrip(key); if (!a) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    a.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  }
+  function mark(key, on) {
+    wrap.querySelectorAll('[data-trip="' + key + '"]').forEach(function (e) { e.classList.toggle('on', on); });
+  }
+  wrap.addEventListener('click', function (e) { var t = e.target.closest('[data-trip]'); if (t) go(t.getAttribute('data-trip')); });
+  wrap.addEventListener('keydown', function (e) {
+    var t = e.target.closest('g[data-trip]');
+    if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); go(t.getAttribute('data-trip')); }
+  });
+  wrap.addEventListener('mouseover', function (e) { var t = e.target.closest('[data-trip]'); if (t) mark(t.getAttribute('data-trip'), true); });
+  wrap.addEventListener('mouseout', function (e) { var t = e.target.closest('[data-trip]'); if (t) mark(t.getAttribute('data-trip'), false); });
+  function load() {
+    var src = box.getAttribute('data-src');
+    if (!src || !box.offsetParent) return;
+    box.removeAttribute('data-src');
+    fetch(src).then(function (r) { if (!r.ok) throw 0; return r.text(); })
+      .then(function (html) { box.innerHTML = html; })
+      .catch(function () { box.innerHTML = '<p class="tmap-loading">The map couldn’t load. Use the place names below instead.</p>'; });
+  }
+  window.addEventListener('hashchange', function () { setTimeout(load, 0); });
+  setTimeout(load, 0);
 })();
 </script>
 </body>
